@@ -5,5 +5,5 @@ class Get_Data:
         pass
     def get_yaml_data(self, file_name):
         """返回yaml文件数据"""
-        with open("./Data"+ os.sep + file_name, "r") as f:
+        with open("./Data"+ os.sep + file_name, "r",encoding="utf-8") as f:
             return yaml.load(f)
