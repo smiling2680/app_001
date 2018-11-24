@@ -28,7 +28,7 @@ class Test_Login:
     def teardown_class(self):
         self.page_obj.driver.quit()
     @pytest.mark.parametrize("i, phone, passwd, expect_data", get_login_data().get("suc"))
-    def abc_test_login_suc(self, i, phone, passwd, expect_data):
+    def test_login_suc(self, i, phone, passwd, expect_data):
         """成功测试用例"""
         # 点击我
         self.page_obj.get_home_page_obj().click_my_btn()
