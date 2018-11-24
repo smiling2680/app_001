@@ -1,10 +1,11 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-
+import allure
 class Base:
 
     def __init__(self, driver):
         self.driver = driver
+
     def search_element(self, loc, timeout=10, poll_frequency=1.0):
         """
         定位单个元素
@@ -49,6 +50,8 @@ class Base:
         input_text.clear()
         # 输入内容
         input_text.send_keys(text)
+
+    @allure.step(title="滑动操作")
     def screen_scoll(self, scroll_tag):
         """
         滑动屏幕方法
@@ -64,18 +67,24 @@ class Base:
         # 高
         height = screen_size.get("height")
         if scroll_tag == 1:
+            allure.attach("向上滑动","传入的值为{}".format(scroll_tag))
             self.driver.swipe(width*0.5, height*0.8, width*0.5, height*0.3)
         if scroll_tag == 2:
+            allure.attach("向下滑动", "传入的值为{}".format(scroll_tag))
             self.driver.swipe(width*0.5, height*0.3, width*0.5, height*0.8)
         if scroll_tag == 3:
+            allure.attach("向左滑动", "传入的值为{}".format(scroll_tag))
             self.driver.swipe(width*0.8, height*0.5, width*0.3, height*0.5)
         if scroll_tag == 4:
+            allure.attach("向右滑动", "传入的值为{}".format(scroll_tag))
             self.driver.swipe(width*0.3, height*0.5, width*0.8, height*0.5)
 
+    @allure.step(title="获取toast信息")
     def get_toast(self, mes):
         """获取toast消息"""
+
         toast_mes_xpath = "//*[contains(@text,'{}')]".format(mes)
         # toast获取提示消息
         toast_message = self.search_element((By.XPATH, toast_mes_xpath), timeout=5, poll_frequency=0.5).text
-
+        allure.attach("获取到的toast文本","{}".format(toast_message))
         return toast_message

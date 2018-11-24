@@ -1,16 +1,18 @@
 from Base.Base import Base
-import Page
+import Page,allure
 
 class Setting_Page(Base):
 
     def __init__(self, driver):
         Base.__init__(self, driver)
 
+    @allure.step(title="退出操作")
     def log_out(self, logout_tag=1):
         """退出
             logout_tag: 1退出  非1 取下退出
         """
         # 向上滑动屏幕
+        allure.attach("滑动操作","")
         self.screen_scoll(1)
         # 点击退出按钮
         self.click_element(Page.logout_btn_id)
